@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name', 'administrator_id', 'first_name', 'image', 'status',
+    ];
+
+    public function administrator()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }

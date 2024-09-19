@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Administrator extends Authenticatable
+class Admin  extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'admins'; // Assurez-vous que le nom est correct
     /**
      * The attributes that are mass assignable.
      *
