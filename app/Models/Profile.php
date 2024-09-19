@@ -9,7 +9,7 @@ class Profile extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'administrator_id', 'first_name', 'image', 'status',
+        'last_name', 'administrator_id', 'first_name', 'image', 'status',
     ];
 
     public function administrator()
