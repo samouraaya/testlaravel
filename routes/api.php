@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('/admin/login', [AdminController::class, 'login']);
-Route::post('/admin/register', [AdminController::class, 'register']);
+Route::post('/admin/addAdmin', [AdminController::class, 'addAdmin']);
 
-Route::middleware('auth:admin')->group(function () {
+Route::middleware('auth:administrator')->group(function () {
     Route::post('/profiles', [ProfileController::class, 'store']);
 });
 

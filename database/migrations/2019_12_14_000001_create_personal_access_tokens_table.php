@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('tokenable_id');
             $table->string('tokenable_type');
             $table->timestamps();
+            $table->timestamp('last_used_at')->nullable();
         });
     }
 

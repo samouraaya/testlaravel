@@ -8,13 +8,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 
+
 class AdminController extends Controller
 {
-    public function register(RegisterAdministratorRequest $request)
-    {
+    public function addAdmin(RegisterAdministratorRequest $request)
+    { 
         $validatedData = $request->validated();
 
-        // Créez l'administrateur avec les données validées
+        // Create the administrator with the validated data
         $administrator = Admin::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
@@ -32,37 +33,26 @@ class AdminController extends Controller
      */
     public function login(Request $request)
     {
-        // Valider les données d'entrée
-        $request->validate([
+        // Validation des champs de requête
+        $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required'
         ]);
 
-        // Authentifier l'utilisateur
-        if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
-        
-            // Récupérer l'administrateur authentifié
-            $admin = Auth::guard('admin')->user();
-            if ($admin instanceof Admin) {
-                // Générer un token
-                $token = $admin->createToken('AdminToken')->plainTextToken;
+        // Vérification manuelle des informations d'identification
+        $admin = Admin::where('email', $credentials['email'])->first();
 
-                // Retourner la réponse avec le token
-                return response()->json([
-                    'token' => $token,
-                    'message' => 'Login successful'
-                ], 200);
-            } else {
-                return response()->json([
-                    'message' => 'Invalid user model'
-                ], 500);
-            }
+        if (!$admin || !Hash::check($credentials['password'], $admin->password)) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        // Retourner une réponse d'erreur en cas d'échec
+        // Création du token avec Sanctum
+        $token = $admin->createToken('AdminToken')->plainTextToken;
+
         return response()->json([
-            'message' => 'Unauthorized'
-        ], 401);
+            'message' => 'Login successful',
+            'token' => $token
+        ], 200);
     }
 
 }

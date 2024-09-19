@@ -15,14 +15,8 @@ class ProfileController extends Controller
     }
 
     public function store(ProfileRequest $request)
-    {
-        $profile = Profile::create([
-            'name' => $request->name,
-            'administrator_id' => Auth::id(),
-            'first_name' => $request->first_name,
-            'image' => $request->file('image')->store('images'),
-            'status' => $request->status,
-        ]);
+    { 
+        $profile = Profile::create($request->validated());
 
         return response()->json($profile, 201);
     }
