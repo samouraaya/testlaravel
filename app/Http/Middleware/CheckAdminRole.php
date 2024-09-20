@@ -19,11 +19,11 @@ class CheckAdminRole
     public function handle(Request $request, Closure $next)
     {
         // Check if the authenticated user is an admin
-        if (Auth::check() && Auth::user()->role_id === 1) { // Assuming 1 is the role ID for admin
+        if (auth()->check() && auth()->user()->role->name === 'admin') {
             return $next($request);
         }
 
         // Return an unauthorized response if not an admin
-        return response()->json(['message' => 'Unauthorized'], 403);
+        return response()->json(['message' => 'Access denied. Admins only.'], 403);
     }
 }
