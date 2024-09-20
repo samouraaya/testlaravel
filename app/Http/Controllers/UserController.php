@@ -67,12 +67,37 @@ class UserController extends Controller
     
     }
 
-     /**
-     * Authentifie un administrateur et retourne un token.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    /**
+ * @OA\Post(
+ *     path="/api/user/login",
+ *     tags={"Auth"},
+ *     summary="Authenticate an admin and return a token",
+ *     description="Logs in an admin user and returns an authentication token.",
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email","password"},
+ *             @OA\Property(property="email", type="string", example="admin@example.com"),
+ *             @OA\Property(property="password", type="string", example="password123"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Login successful",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Login successful"),
+ *             @OA\Property(property="token", type="string", example="your_token_here"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Invalid credentials",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Invalid credentials")
+ *         )
+ *     )
+ * )
+ */
     public function login(Request $request)
     {
         // Validation des champs de requête
