@@ -5,21 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Comment extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'last_name', 'administrator_id', 'first_name', 'image', 'status',
-    ];
+    protected $fillable = ['content','administrator_id','profile_id'];
 
     public function administrator()
     {
         return $this->belongsTo(Admin::class);
     }
-    
-    public function comments()
+
+    public function profile()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(Profile::class);
     }
 }
-
