@@ -29,6 +29,7 @@ class ProfileRequest extends FormRequest
             'first_name' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'status' => 'required|in:inactive,pending,active',
+          //  'administrator_id' => 'required|exists:administrators,id',
         ];
     }
 
@@ -55,7 +56,7 @@ class ProfileRequest extends FormRequest
             'last_name.required' => 'last_name is required',
             'first_name.required' => 'first_name is required',
             'image.required' => 'image is required',
-            'status.required' => 'status is required',
+            'status.required' => 'status is required'
 
         ];
 
