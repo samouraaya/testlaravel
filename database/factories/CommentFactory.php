@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Admin;
 use App\Models\Comment;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +22,7 @@ class CommentFactory extends Factory
     {
         return [
             'content' => $this->faker->paragraph,
-            'administrator_id'=>Admin::factory(),
+            'administrator_id'=>User::factory(),
             'profile_id'=> Profile::factory(),
             //
         ];

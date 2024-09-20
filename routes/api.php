@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/admin/login', [AdminController::class, 'login']);
-Route::post('/admin/addAdmin', [AdminController::class, 'addAdmin']);
+Route::post('/user/login', [UserController::class, 'login']);
+Route::post('/user/addUser', [UserController::class, 'addUser']);
 
 Route::middleware('auth:administrator')->group(function () {
     Route::post('/profiles', [ProfileController::class, 'store']);

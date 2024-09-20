@@ -12,7 +12,7 @@ class Comment extends Model
 
     public function administrator()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(User::class);
     }
 
     public function profile()

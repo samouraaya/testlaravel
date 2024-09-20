@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'admins',
+        'passwords' => 'users',
     ],
 
     /*
@@ -38,17 +38,17 @@ return [
   'guards' => [
     'web' => [
         'driver' => 'session',
-        'provider' => 'admins',
+        'provider' => 'users',
     ],
 
     'api' => [
         'driver' => 'sanctum',
-        'provider' => 'admins',
+        'provider' => 'users',
     ],
 
     'administrator' => [ 
         'driver' => 'sanctum',
-        'provider' => 'admins',
+        'provider' => 'users',
     ],
 ],
     /*
@@ -69,9 +69,9 @@ return [
     */
 
     'providers' => [
-        'admins' => [
+        'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [
@@ -100,8 +100,8 @@ return [
     */
 
     'passwords' => [
-        'admins' => [
-            'provider' => 'admins',
+        'users' => [
+            'provider' => 'users',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

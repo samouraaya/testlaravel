@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -15,7 +16,7 @@ class ProfileTest extends TestCase
     public function an_authenticated_administrator_can_create_a_profile()
     {
         // Créer ou authentifier un administrateur
-    $admin = Admin::factory()->create();
+    $admin = User::factory()->create();
 
     // Obtenir un token d'authentification
     $token = $admin->createToken('AdminToken')->plainTextToken;

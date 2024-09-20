@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class RegisterAdministratorRequest extends FormRequest
+class RegisterUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +25,13 @@ class RegisterAdministratorRequest extends FormRequest
     { 
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:admins',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|in:admin,user'
         ];
     }
     public function failedValidation(Validator $validator)
     {
-
         throw new HttpResponseException(response()->json([
 
             'success'   => false,
@@ -44,15 +44,14 @@ class RegisterAdministratorRequest extends FormRequest
 
     }
     public function messages()
-
-    {
+ 
+    { 
 
         return [
 
             'name.required' => 'name is required',
-
             'email.required' => 'email is required',
-             'password.required' => 'password is required',
+            'password.required' => 'password is required',
 
         ];
 

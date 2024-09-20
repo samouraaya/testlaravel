@@ -20,7 +20,7 @@ class ProfileFactory extends Factory
     {
         return [
             'last_name' => $this->faker->name,
-            'administrator_id' => \App\Models\Admin::factory(),
+            'administrator_id' => \App\Models\User::factory(),
             'first_name' => $this->faker->firstName,
             'image' => 'images/default.png',
             'status' => 'active',

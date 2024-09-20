@@ -12,11 +12,11 @@ class Profile extends Model
         'last_name', 'administrator_id', 'first_name', 'image', 'status',
     ];
 
-    public function administrator()
+    public function users()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(User::class);
     }
-    
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

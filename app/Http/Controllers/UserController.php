@@ -2,27 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterAdministratorRequest;
+use App\Http\Requests\RegisterUserRequest;
+use App\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 
-class AdminController extends Controller
+class UserController extends Controller
 {
-    public function addAdmin(RegisterAdministratorRequest $request)
+    public function addUser(RegisterUserRequest $request)
     { 
         $validatedData = $request->validated();
+        // find role 
+        $role = Role::where('name', $validatedData['role'])->first();
 
-        // Create the administrator with the validated data
-        $administrator = Admin::create([
+        if (!$role) {
+            return response()->json(['error' => 'Role not found'], 404);
+        }
+  
+            // Create a new user
+        $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
+            'role_id' => $role->id, // Use id role
         ]);
+
+        return response()->json($user, 201);
+        
     
-        return response()->json(['success' => 'Administrator created successfully.'], 201);
     }
 
      /**
@@ -40,7 +49,7 @@ class AdminController extends Controller
         ]);
 
         // Vérification manuelle des informations d'identification
-        $admin = Admin::where('email', $credentials['email'])->first();
+        $admin = User::where('email', $credentials['email'])->first();
 
         if (!$admin || !Hash::check($credentials['password'], $admin->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
