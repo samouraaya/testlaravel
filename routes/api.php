@@ -18,10 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/user/login', [UserController::class, 'login']);
 Route::post('/user/addUser', [UserController::class, 'addUser']);
 
-Route::middleware('auth:administrator')->group(function () {
-    Route::post('/profiles', [ProfileController::class, 'store']);
+Route::middleware(['auth:sanctum', 'checkAdmin'])->group(function () {
+    Route::post('/profiles', [ProfileController::class, 'store']);  // Protected route, only admins can create profiles
 });
-
 /*Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });*/
