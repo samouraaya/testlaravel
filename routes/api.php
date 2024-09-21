@@ -22,7 +22,7 @@ Route::get('/getprofiles', [ProfileController::class, 'index']);
 
 Route::middleware(['auth:sanctum', 'checkAdmin'])->group(function () {
     Route::post('/profiles', [ProfileController::class, 'store']);  // Protected route, only admins can create profiles
-    Route::post('/profiles/{profile}/comments', [CommentController::class, 'store']);  // Protected route, only admins can create comments for profiles
+    Route::post('/profiles/{profile}/comments', [ProfileController::class, 'storeComment']);  // Protected route, only admins can create comments for profiles
 });
 Route::middleware('auth:sanctum')->get('/profiles', [ProfileController::class, 'indexAll']);
 
