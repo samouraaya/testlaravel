@@ -15,7 +15,7 @@ class CommentController extends Controller
  *     description="Allows an authenticated administrator to post a comment on a profile",
  *     operationId="storeComment",
  *     tags={"Comments"},
- *     security={{"sanctum":{}}},
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="profile",
  *         in="path",

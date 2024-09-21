@@ -8,12 +8,7 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    protected function unauthenticated($request, AuthenticationException $exception)
-    {
-        return $request->expectsJson()
-            ? response()->json(['message' => 'You are not authenticated. Please provide a valid token.'], 401)
-            : redirect()->guest(route('login'));
-    }
+    
     /**
      * A list of exception types with their corresponding custom log levels.
      *

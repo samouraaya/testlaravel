@@ -18,12 +18,16 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/user/login', [UserController::class, 'login']);
 Route::post('/user/addUser', [UserController::class, 'addUser']);
+Route::get('/getprofiles', [ProfileController::class, 'index']);
 
 Route::middleware(['auth:sanctum', 'checkAdmin'])->group(function () {
     Route::post('/profiles', [ProfileController::class, 'store']);  // Protected route, only admins can create profiles
     Route::post('/profiles/{profile}/comments', [CommentController::class, 'store']);  // Protected route, only admins can create comments for profiles
 });
+Route::middleware('auth:sanctum')->get('/profiles', [ProfileController::class, 'indexAll']);
 
-/*Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
-});*/
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/updateProfiles/{profile}', [ProfileController::class, 'update']);  // Update profile
+    Route::delete('/deleteProfiles/{profile}', [ProfileController::class, 'destroy']);  // delete  profile
+});
+

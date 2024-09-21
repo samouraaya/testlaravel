@@ -46,6 +46,7 @@ return [
                  */
                 'annotations' => [
                     base_path('app'),
+                    base_path('app/OpenApi'),
                 ],
             ],
         ],
@@ -175,6 +176,12 @@ return [
          * API security definitions. Will be generated into documentation file.
         */
         'securityDefinitions' => [
+            'bearerAuth' => [
+                'type' => 'apiKey',
+                'name' => 'Authorization',
+                'in' => 'header',
+                'description' => 'Enter token in format (Bearer <token>)',
+            ],
             'securitySchemes' => [
                 /*
                  * Examples of Security schemes

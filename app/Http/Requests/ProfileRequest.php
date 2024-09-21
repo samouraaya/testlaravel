@@ -29,13 +29,11 @@ class ProfileRequest extends FormRequest
             'first_name' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'status' => 'required|in:inactive,pending,active',
-          //  'administrator_id' => 'required|exists:administrators,id',
         ];
     }
 
     public function failedValidation(ValidationValidator $validator)
     {
-
         throw new HttpResponseException(response()->json([
 
             'success'   => false,
@@ -47,6 +45,7 @@ class ProfileRequest extends FormRequest
         ]));
 
     }
+    
     public function messages()
 
     {
