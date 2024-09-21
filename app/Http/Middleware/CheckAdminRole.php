@@ -22,7 +22,6 @@ class CheckAdminRole
         if (auth()->check() && auth()->user()->role->name === 'admin') {
             return $next($request);
         }
-
         // Return an unauthorized response if not an admin
         return response()->json(['message' => 'Access denied. Admins only.'], 403);
     }
